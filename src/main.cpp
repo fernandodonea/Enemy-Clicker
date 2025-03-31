@@ -1,27 +1,53 @@
+#include <iostream>
+
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
+
+
 
 int main()
 {
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(600, 700), "Litle Ghost");
+    sf::RenderWindow window(sf::VideoMode(640, 480), "Little Ghost", sf::Style::Titlebar | sf::Style::Close);
+    sf::Event ev;
 
-    // Load a sprite to display
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Red);
-
+    //Game loop
     while (window.isOpen())
     {
-        sf::Event event;
-        while (window.pollEvent(event))
+        //Event polling
+        while(window.pollEvent(ev))
         {
-            if (event.type == sf::Event::Closed)
-                window.close();
+            switch (ev.type)
+            {
+                case sf::Event::Closed:
+                    window.close();
+                    break;
+                case sf::Event::KeyPressed:
+                    if (ev.key.code == sf::Keyboard::Escape)
+                    {
+                        window.close();
+                    }
+                    break;
+            }
         }
 
-        window.clear();
-        window.draw(shape);
-        window.display();
+        //Update
+
+
+        //Render
+        window.clear(sf::Color::Blue); // Clear old frame
+
+        //Draw your game
+
+        window.display(); //Tell app that window is done drawing        
     }
 
-    return 0;
+    //End of application
+
+
+
+
+
 }
