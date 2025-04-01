@@ -9,6 +9,8 @@
 #include <SFML/Audio.hpp>
 
 #include <iostream>
+#include <vector>
+#include <ctime>
 
 /*
 Class that acts as a game engine
@@ -24,7 +26,17 @@ class Game
         sf::VideoMode videoMode;
         sf::Event ev;
 
+        //Mouse positions
+        sf::Vector2i mousePosWindow;
+
+        //Game logic
+        int points;
+        float enemySpawnTimer;
+        float enemySpawnTimerMax;
+        unsigned maxEnemies;
+
         //Game objects
+        std::vector<sf::RectangleShape> enemies;
         sf::RectangleShape enemy;
         
 
@@ -42,8 +54,13 @@ class Game
         const bool getWindowIsOpen() const;
 
         //Functions
+        void spawnEnemy();
+
         void pollEvents();
+        void updateMousePositions();
+        void updateEnemies();
         void update();
+        void renderEnemies();
         void render();
 };
 
