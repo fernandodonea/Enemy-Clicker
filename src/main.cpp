@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Game.h"
 
 
@@ -7,7 +6,6 @@ int main()
     //Init game engine
     Game game;
     
-
     //Game loop
     while (game.getWindowIsOpen())
     {
@@ -20,6 +18,7 @@ int main()
     }
 
     //End of application
+    return 0;
 
 
 }
