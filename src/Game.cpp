@@ -15,6 +15,7 @@ void Game::initVariables()
     this->maxEnemies=10 ;
     this->mouseHeld=false;
 }
+
 void Game::initWindow()
 {
     // Initialize the window
@@ -24,6 +25,26 @@ void Game::initWindow()
     this->window = new sf::RenderWindow(this->videoMode, "Little Ghost", sf::Style::Titlebar | sf::Style::Close);
 
     this->window->setFramerateLimit(60); // Set the frame rate limit 
+}
+
+void Game::initFonts()
+{
+    if(this->font.loadFromFile("fonts/Dosis.ttf"))
+    {
+        std::cout<<"Font loaded!"<<std::endl;
+    }
+    else
+    {
+        std::cout<<"ERROR::GAME::INITFONS:: Error loading font!"<<std::endl;
+    }  
+}
+
+void Game::initText()
+{
+    this->uiText.setFont(this->font);
+    this->uiText.setCharacterSize(20);
+    this->uiText.setFillColor(sf::Color::White);
+    this->uiText.setString("NONE");    
 }
 
 void Game::initEnemies()
@@ -36,11 +57,15 @@ void Game::initEnemies()
     // this->enemy.setOutlineThickness(1.f);
 }
 
+
+
 // Constructor and Destructor
 Game::Game()
 {
     this->initVariables();
     this->initWindow();
+    this->initFonts();
+    this->initText();
     this->initEnemies();
 }
 Game::~Game()
@@ -48,16 +73,22 @@ Game::~Game()
     delete this->window; //avoid memory leak
 }
 
+
+
 // Accessors
 const bool Game::getWindowIsOpen() const
 {
     return this->window->isOpen();
 }
+
 const bool Game::getEndGame() const
 {
     return this->endGame;
 }
 
+
+
+//Functions
 void Game::spawnEnemy()
 {
     /*
@@ -82,13 +113,9 @@ void Game::spawnEnemy()
    this->enemies.push_back(this->enemy);
 
    //Remove enemies at end of screen
-   
 }
 
 
-
-
-//Functions
 void Game::pollEvents()
 {
     // event polling
@@ -107,7 +134,6 @@ void Game::pollEvents()
                 break;
         }
     }
-
 }
 
 void Game::updateMousePositions()
@@ -124,6 +150,22 @@ void Game::updateMousePositions()
    this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindow);
 }
 
+void Game::updateText()
+{
+    /*
+    @return void
+    Updates the text that is displayed on the screen:
+    - Points (number of enemies killed)
+    - Health (number of enemies that passed the screen)
+    */
+    std::stringstream ss;
+
+    ss << "Points: " << this->points << "\n"
+       << "Health: " << this->health << "\n";
+
+    this->uiText.setString(ss.str());
+}
+
 void Game::updateEnemies()
 {
     /*
@@ -134,8 +176,7 @@ void Game::updateEnemies()
         Moves the enemies downwards.
         Removes the enemies at the edge of the screens //TODO
 
-     */
-
+    */
 
     //Updating the timer for enemy spawning
     if(this->enemies.size()<this->maxEnemies)
@@ -166,8 +207,6 @@ void Game::updateEnemies()
             this->health-=1;
             std::cout<<"Health: "<<this->health<<std::endl;
         }
-         
-
     }
 
     //check if clicked uppon
@@ -175,7 +214,6 @@ void Game::updateEnemies()
     {
         if(this->mouseHeld==false)
         {
-
             this->mouseHeld=true;
             bool deleted=false;
 
@@ -191,19 +229,14 @@ void Game::updateEnemies()
                     this->points+=10;
                     std::cout<<"Points: "<<this->points<<std::endl;
                 }
-            
             }
         }
-    
     }
     else
     {
         this->mouseHeld=false;
     }
-
-
 }
-
 
 void Game::update()
 {
@@ -217,6 +250,8 @@ void Game::update()
     {
         this->updateMousePositions();
 
+        this->updateText(); 
+
         this->updateEnemies();
     }
 
@@ -225,19 +260,26 @@ void Game::update()
     {
         this->endGame=true;
         std::cout<<"Game Over!"<<std::endl;
-        std::cout<<"Points: "<<this->points<<std::endl;
     }
 
 }
-void Game::renderEnemies()
+
+
+void Game::renderText(sf::RenderTarget& target) 
+{
+    target.draw(this->uiText); 
+}
+
+void Game::renderEnemies(sf::RenderTarget& target)
 {
     //rendering all the enemies
     for(auto &e : this->enemies)
     {
-        this->window->draw(e);
+        target.draw(e);
     }
 
 }
+
 void Game::render()
 {
     /*
@@ -253,7 +295,9 @@ void Game::render()
     this->window->clear();
 
     //Draw game objects
-    this->renderEnemies();
+    this->renderEnemies(*this->window);
+ 
+    this->renderText(*this->window);
 
     this->window->display();
 }
