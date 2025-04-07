@@ -29,12 +29,15 @@ class Game
         //Mouse positions
         sf::Vector2i mousePosWindow;
         sf::Vector2f mousePosView;
-
+  
         //Game logic
-        int points;
+        bool endGame;
+        unsigned points;
+        int health;
         float enemySpawnTimer;
         float enemySpawnTimerMax;
         unsigned maxEnemies;
+        bool mouseHeld;
 
         //Game objects
         std::vector<sf::RectangleShape> enemies;
@@ -53,6 +56,7 @@ class Game
 
         // Accessors
         const bool getWindowIsOpen() const;
+        const bool getEndGame() const;
 
         //Functions
         void spawnEnemy();
