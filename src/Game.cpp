@@ -262,7 +262,7 @@ void Game::updateEnemies()
                     else if(this->enemies[i].getFillColor()==sf::Color::Red)
                         this->points+=100;
                     else if(this->enemies[i].getFillColor()==sf::Color::Yellow)
-                        this->points+50;
+                        this->points+=50;
                     else if(this->enemies[i].getFillColor()==sf::Color::Blue)
                         this->points+=25;
                     else if(this->enemies[i].getFillColor()==sf::Color::Green)
