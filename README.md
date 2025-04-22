@@ -20,19 +20,9 @@ The game involves spawning enemies of different types, which the player can inte
 - **`.vscode/`**: Configuration files for Visual Studio Code.
 - **`bin/`**: Output directory for the compiled binary.
 
-## How to build and run
+Files in the `src/` directory:
+- **`main.cpp`**: Entry point of the game.
+- **`Game.cpp`**: Contains the main game loop and game logic.
 
-1. Clone de repository
-```bash
-git clone https://github.com/fernandodonea/oop-project-game1
-cd oop-project-game1
-```
-2.Build the project using the provided Makefile:
-```bash
-make
-```
-3. Run the game:
-```bash
-./bin/app
-```
+
 
