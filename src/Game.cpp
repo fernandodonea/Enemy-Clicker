@@ -22,7 +22,7 @@ void Game::initWindow()
     this->videoMode.height = 600;
     this->videoMode.width = 800;
     
-    this->window = new sf::RenderWindow(this->videoMode, "Little Ghost", sf::Style::Titlebar | sf::Style::Close);
+    this->window = new sf::RenderWindow(this->videoMode, "Enemy Clicker", sf::Style::Titlebar | sf::Style::Close);
 
     this->window->setFramerateLimit(60); // Set the frame rate limit 
 }

@@ -1,10 +1,10 @@
-# OOP Project - SFML Game
+# OOP Project - Enemy Clicker Game
 
 This is a simple 2D game built for practicing object-oriented programming (OOP) principles. The game is developed in C++ using the SFML (Simple and Fast Multimedia Library). 
 
 The game involves spawning enemies of different types, which the player can interact with by clicking on them to gain points. The game ends when the player's health reaches zero.
 
-
+[![Game Screenshot](resources/images/screenshot.png)](resources/images/screenshot.png)
 ## Features
 
 - **Game Engine**: Custom game engine implemented in C++.
@@ -17,6 +17,7 @@ The game involves spawning enemies of different types, which the player can inte
 
 - **`src/`**: Contains the source code for the game.
 - **`resources/fonts/`**: Includes font files used in the game.
+- **`resources/images/`**: Contains a screenshot of the game.
 - **`.vscode/`**: Configuration files for Visual Studio Code.
 - **`bin/`**: Output directory for the compiled binary.
 
