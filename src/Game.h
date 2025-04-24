@@ -21,30 +21,33 @@ Wrapper Class
 class Game
 {
     private:
-        //Variables
+        /*Variables*/
+
         //Window
         sf::RenderWindow* window;
-        sf::VideoMode videoMode;
+        sf::VideoMode video_mode;
         sf::Event ev;
 
         //Mouse positions
-        sf::Vector2i mousePosWindow;
-        sf::Vector2f mousePosView;
+        sf::Vector2i mouse_pos_window;
+        sf::Vector2f mouse_pos_view;
 
         //Resources
         sf::Font font;
 
         //Text
-        sf::Text uiText;
+        sf::Text ui_text;
   
         //Game logic
-        bool endGame;
+        bool end_game;
         unsigned points;
         int health;
-        float enemySpawnTimer;
-        float enemySpawnTimerMax;
-        unsigned maxEnemies;
-        bool mouseHeld;
+
+        float enemy_spawn_timer;
+        float enemy_spawn_timer_max;
+        unsigned max_enemies;
+
+        bool  mouse_held;
 
         //Game objects
         std::vector<sf::RectangleShape> enemies;

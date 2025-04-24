@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "game.h"
 
 // Private functions
 void Game::initVariables()
@@ -7,22 +7,22 @@ void Game::initVariables()
     this->window = nullptr;
 
     //Game logic
-    this->endGame=false;  
+    this->end_game=false;  
     this->points=0;
     this->health=10; 
-    this->enemySpawnTimerMax=10.f;
-    this->enemySpawnTimer=this->enemySpawnTimerMax; 
-    this->maxEnemies=6;
-    this->mouseHeld=false;
+    this->enemy_spawn_timer_max=10.f;
+    this->enemy_spawn_timer=this->enemy_spawn_timer_max; 
+    this->max_enemies=6;
+    this-> mouse_held=false;
 }
 
 void Game::initWindow()
 {
     // Initialize the window
-    this->videoMode.height = 600;
-    this->videoMode.width = 800;
+    this->video_mode.height = 600;
+    this->video_mode.width = 800;
     
-    this->window = new sf::RenderWindow(this->videoMode, "Enemy Clicker", sf::Style::Titlebar | sf::Style::Close);
+    this->window = new sf::RenderWindow(this->video_mode, "Enemy Clicker", sf::Style::Titlebar | sf::Style::Close);
 
     this->window->setFramerateLimit(60); // Set the frame rate limit 
 }
@@ -41,11 +41,11 @@ void Game::initFonts()
 
 void Game::initText()
 {
-    this->uiText.setFont(this->font);
-    this->uiText.setCharacterSize(20);
-    this->uiText.setFillColor(sf::Color::White);
-    this->uiText.setStyle(sf::Text::Bold);
-    this->uiText.setString("NONE");    
+    this->ui_text.setFont(this->font);
+    this->ui_text.setCharacterSize(20);
+    this->ui_text.setFillColor(sf::Color::White);
+    this->ui_text.setStyle(sf::Text::Bold);
+    this->ui_text.setString("NONE");    
 }
 
 void Game::initEnemies()
@@ -83,7 +83,7 @@ const bool Game::getWindowIsOpen() const
 
 const bool Game::getEndGame() const
 {
-    return this->endGame;
+    return this->end_game;
 }
 
 
@@ -177,8 +177,8 @@ void Game::updateMousePositions()
     - mouse position relative to the view (vector2f = vector of 2 floats)
     */
 
-   this->mousePosWindow = sf::Mouse::getPosition(*this->window);
-   this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindow);
+   this->mouse_pos_window = sf::Mouse::getPosition(*this->window);
+   this->mouse_pos_view = this->window->mapPixelToCoords(this->mouse_pos_window);
 }
 
 void Game::updateText()
@@ -194,7 +194,7 @@ void Game::updateText()
     ss << "Points: " << this->points << "\n"
        << "Health: " << this->health << "\n";
 
-    this->uiText.setString(ss.str());
+    this->ui_text.setString(ss.str());
 }
 
 void Game::updateEnemies()
@@ -210,16 +210,16 @@ void Game::updateEnemies()
     */
 
     //Updating the timer for enemy spawning
-    if(this->enemies.size()<this->maxEnemies)
+    if(this->enemies.size()<this->max_enemies)
     {
-        if(this->enemySpawnTimer>=this->enemySpawnTimerMax)
+        if(this->enemy_spawn_timer>=this->enemy_spawn_timer_max)
         {
             //Spawn the enemy and reset the timer
             this->spawnEnemy();
-            this->enemySpawnTimer=0.f;
+            this->enemy_spawn_timer=0.f;
         }
         else
-            this->enemySpawnTimer+=1.f;
+            this->enemy_spawn_timer+=1.f;
 
     }
 
@@ -243,14 +243,14 @@ void Game::updateEnemies()
     //check if clicked uppon
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        if(this->mouseHeld==false)
+        if(this-> mouse_held==false)
         {
-            this->mouseHeld=true;
+            this-> mouse_held=true;
             bool deleted=false;
 
             for(size_t i=0;i<this->enemies.size() && deleted==false;++i)
             {
-                if(this->enemies[i].getGlobalBounds().contains(this->mousePosView))
+                if(this->enemies[i].getGlobalBounds().contains(this->mouse_pos_view))
                 {
                     
                     //Gain points
@@ -279,7 +279,7 @@ void Game::updateEnemies()
     }
     else
     {
-        this->mouseHeld=false;
+        this-> mouse_held=false;
     }
 }
 
@@ -291,7 +291,7 @@ void Game::update()
 
     this->pollEvents();
 
-    if(this->endGame==false)
+    if(this->end_game==false)
     {
         this->updateMousePositions();
 
@@ -303,7 +303,7 @@ void Game::update()
     //End game condition
     if(this->health<=0)
     {
-        this->endGame=true;
+        this->end_game=true;
         std::cout<<"Game Over!"<<std::endl;
     }
 
@@ -312,7 +312,7 @@ void Game::update()
 
 void Game::renderText(sf::RenderTarget& target) 
 {
-    target.draw(this->uiText); 
+    target.draw(this->ui_text); 
 }
 
 void Game::renderEnemies(sf::RenderTarget& target)
