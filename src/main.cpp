@@ -7,16 +7,16 @@ int main()
     std::srand(static_cast<unsigned>(time(NULL)));
 
     //Init game engine
-    Game game;
+    EnemyClicker::Game game;
     
     //Game loop
-    while (game.getWindowIsOpen() && !game.getEndGame())
+    while (game.GetWindowIsOpen() && !game.GetEndGame())
     {
         //Update
-        game.update();
+        game.Update();
 
         //Render
-        game.render();
+        game.Render();
           
     }
 
