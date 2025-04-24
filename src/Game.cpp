@@ -1,7 +1,7 @@
 #include "game.h"
 
 // Private functions
-void Game::initVariables()
+void Game::_InitVariables()
 {
     // Initialize game variables
     this->window = nullptr;
@@ -16,7 +16,7 @@ void Game::initVariables()
     this-> mouse_held=false;
 }
 
-void Game::initWindow()
+void Game::_InitWindow()
 {
     // Initialize the window
     this->video_mode.height = 600;
@@ -27,7 +27,7 @@ void Game::initWindow()
     this->window->setFramerateLimit(60); // Set the frame rate limit 
 }
 
-void Game::initFonts()
+void Game::_InitFonts()
 {
     if(this->font.loadFromFile("resources/fonts/Dosis.ttf"))
     {
@@ -39,7 +39,7 @@ void Game::initFonts()
     }  
 }
 
-void Game::initText()
+void Game::_InitText()
 {
     this->ui_text.setFont(this->font);
     this->ui_text.setCharacterSize(20);
@@ -48,7 +48,7 @@ void Game::initText()
     this->ui_text.setString("NONE");    
 }
 
-void Game::initEnemies()
+void Game::_InitEnemies()
 {
     this->enemy.setPosition(10.f, 10.f);
     this->enemy.setSize(sf::Vector2f(100.f, 100.f));
@@ -62,11 +62,11 @@ void Game::initEnemies()
 // Constructor and Destructor
 Game::Game()
 {
-    this->initVariables();
-    this->initWindow();
-    this->initFonts();
-    this->initText();
-    this->initEnemies();
+    this->_InitVariables();
+    this->_InitWindow();
+    this->_InitFonts();
+    this->_InitText();
+    this->_InitEnemies();
 }
 Game::~Game()
 {
@@ -76,12 +76,12 @@ Game::~Game()
 
 
 // Accessors
-const bool Game::getWindowIsOpen() const
+const bool Game::GetWindowIsOpen() const
 {
     return this->window->isOpen();
 }
 
-const bool Game::getEndGame() const
+const bool Game::GetEndGame() const
 {
     return this->end_game;
 }
@@ -89,7 +89,7 @@ const bool Game::getEndGame() const
 
 
 //Functions
-void Game::spawnEnemy()
+void Game::SpawnEnemy()
 {
     /*
         @return void
@@ -147,7 +147,7 @@ void Game::spawnEnemy()
 }
 
 
-void Game::pollEvents()
+void Game::PollEvents()
 {
     // event polling
     while(this->window->pollEvent(this->ev))
@@ -167,7 +167,7 @@ void Game::pollEvents()
     }
 }
 
-void Game::updateMousePositions()
+void Game::UpdateMousePositions()
 {
     /*
     @return void
@@ -181,7 +181,7 @@ void Game::updateMousePositions()
    this->mouse_pos_view = this->window->mapPixelToCoords(this->mouse_pos_window);
 }
 
-void Game::updateText()
+void Game::UpdateText()
 {
     /*
     @return void
@@ -197,7 +197,7 @@ void Game::updateText()
     this->ui_text.setString(ss.str());
 }
 
-void Game::updateEnemies()
+void Game::UpdateEnemies()
 {
     /*
         @return void
@@ -215,7 +215,7 @@ void Game::updateEnemies()
         if(this->enemy_spawn_timer>=this->enemy_spawn_timer_max)
         {
             //Spawn the enemy and reset the timer
-            this->spawnEnemy();
+            this->SpawnEnemy();
             this->enemy_spawn_timer=0.f;
         }
         else
@@ -283,21 +283,21 @@ void Game::updateEnemies()
     }
 }
 
-void Game::update()
+void Game::Update()
 {
     /*
         Update game logic (keyboard inputs, character movement, etc.)
     */
 
-    this->pollEvents();
+    this->PollEvents();
 
     if(this->end_game==false)
     {
-        this->updateMousePositions();
+        this->UpdateMousePositions();
 
-        this->updateText(); 
+        this->UpdateText(); 
 
-        this->updateEnemies();
+        this->UpdateEnemies();
     }
 
     //End game condition
@@ -310,12 +310,12 @@ void Game::update()
 }
 
 
-void Game::renderText(sf::RenderTarget& target) 
+void Game::RenderText(sf::RenderTarget& target) 
 {
     target.draw(this->ui_text); 
 }
 
-void Game::renderEnemies(sf::RenderTarget& target)
+void Game::RenderEnemies(sf::RenderTarget& target)
 {
     //rendering all the enemies
     for(auto &e : this->enemies)
@@ -325,13 +325,13 @@ void Game::renderEnemies(sf::RenderTarget& target)
 
 }
 
-void Game::render()
+void Game::Render()
 {
     /*
         @return void
 
         -clear old frame
-        -render object
+        -Render object
         -display frame in window
 
         Renders the game objects.
@@ -340,9 +340,9 @@ void Game::render()
     this->window->clear();
 
     //Draw game objects
-    this->renderEnemies(*this->window);
+    this->RenderEnemies(*this->window);
  
-    this->renderText(*this->window);
+    this->RenderText(*this->window);
 
     this->window->display();
 }

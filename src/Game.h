@@ -55,11 +55,11 @@ class Game
         
 
         //Private functions
-        void initVariables();
-        void initWindow();
-        void initFonts();
-        void initText(); 
-        void initEnemies();
+        void _InitVariables();
+        void _InitWindow();
+        void _InitFonts();
+        void _InitText(); 
+        void _InitEnemies();
 
     public:
         // Constructor and Destructor
@@ -67,22 +67,22 @@ class Game
         virtual ~Game();
 
         // Accessors
-        const bool getWindowIsOpen() const;
-        const bool getEndGame() const;
+        const bool GetWindowIsOpen() const;
+        const bool GetEndGame() const;
 
         //Functions
-        void spawnEnemy();
+        void SpawnEnemy();
 
-        void pollEvents();
+        void PollEvents();
 
-        void updateMousePositions();
-        void updateText();
-        void updateEnemies();
-        void update();
+        void UpdateMousePositions();
+        void UpdateText();
+        void UpdateEnemies();
+        void Update();
    
-        void renderText(sf::RenderTarget& target);
-        void renderEnemies(sf::RenderTarget& target);
-        void render();
+        void RenderText(sf::RenderTarget& target);
+        void RenderEnemies(sf::RenderTarget& target);
+        void Render();
 };
 
 
